@@ -17,12 +17,51 @@
         "url": "https://github.com/hasit/vscode-plush/issues"
     },
     "categories": [
-        "Snippets"
+        "Programming Languages"
     ],
     "contributes": {
-        "snippets": [{
-            "language": "html",
-            "path": "./snippets/snippets.json"
-        }]
+        "snippets": [
+            {
+                "language": "html",
+                "path": "./snippets/snippets.json"
+            }
+        ],
+        "languages": [
+            {
+                "id": "plush",
+                "aliases": [
+                    "Plush",
+                    "plush",
+                    "fizz"
+                ],
+                "extensions": [
+                    ".plush",
+                    ".fizz",
+                    ".html"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "plush",
+                "scopeName": "source.plush",
+                "path": "./syntaxes/fizz.tmLanguage.json"
+            },
+            {
+                "language": "plush",
+                "scopeName": "text.html.plush",
+                "path": "./syntaxes/html.tmLanguage.json",
+                "embeddedLanguages": {
+                    "text.html": "html",
+                    "source.plush": "plush",
+                    "source.sql": "sql",
+                    "text.xml": "xml",
+                    "source.js": "javascript",
+                    "source.json": "json",
+                    "source.css": "css"
+                }
+            }
+        ]
     }
 }

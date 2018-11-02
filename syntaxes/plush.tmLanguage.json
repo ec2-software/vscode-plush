@@ -1,0 +1,66 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Plush",
+    "patterns": [
+        {
+            "include": "#comments"
+        },
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#strings"
+        }
+    ],
+    "fileTypes": [
+        "plush",
+        "fizz"
+    ],
+    "repository": {
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "keyword.control.plush",
+                    "match": "\\b(if|let|for|in|return)\\b"
+                }
+            ]
+        },
+        "strings": {
+            "name": "string.quoted.double.plush",
+            "begin": "\"",
+            "end": "\"",
+            "patterns": [
+                {
+                    "name": "constant.character.escape.plush",
+                    "match": "\\\\."
+                }
+            ]
+        },
+        "comments": {
+            "patterns": [
+                {
+                    "begin": "(^\\s+)?(?=#)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.whitespace.comment.leading.php"
+                        }
+                    },
+                    "end": "(?!\\G)",
+                    "patterns": [
+                        {
+                            "begin": "#",
+                            "beginCaptures": {
+                                "0": {
+                                    "name": "punctuation.definition.comment.php"
+                                }
+                            },
+                            "end": "\\n|(?=\\?>)",
+                            "name": "comment.line.number-sign.php"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "scopeName": "source.go"
+}

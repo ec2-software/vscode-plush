@@ -1,0 +1,189 @@
+{
+    "information_for_contributors": [
+        "This file has been converted from https://github.com/atom/language-plush/blob/master/grammars/html.cson",
+        "If you want to provide a fix or improvement, please create a pull request against the original repository.",
+        "Once accepted there, we are happy to receive an update request."
+    ],
+    "version": "https://github.com/atom/language-plush/commit/72bfa9592e689fdcb70562ff7d882ad5308e79f7",
+    "name": "plush",
+    "scopeName": "text.html.plush",
+    "injections": {
+        "L:source.plush string.quoted.single.sql.plush source.sql.embedded.plush": {
+            "patterns": [
+                {
+                    "match": "(#)(\\\\'|[^'])*(?='|$)",
+                    "name": "comment.line.number-sign.sql",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.comment.sql"
+                        }
+                    }
+                },
+                {
+                    "match": "(--)(\\\\'|[^'])*(?='|$)",
+                    "name": "comment.line.double-dash.sql",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.comment.sql"
+                        }
+                    }
+                },
+                {
+                    "match": "\\\\[\\\\'`\"]",
+                    "name": "constant.character.escape.plush"
+                },
+                {
+                    "match": "\"(?=((\\\\\")|[^\"'])*('|$))",
+                    "name": "string.quoted.double.unclosed.sql"
+                }
+            ]
+        },
+        "L:source.plush string.quoted.double.sql.plush source.sql.embedded.plush": {
+            "patterns": [
+                {
+                    "match": "(#)(\\\\\"|[^\"])*(?=\"|$)",
+                    "name": "comment.line.number-sign.sql",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.comment.sql"
+                        }
+                    }
+                },
+                {
+                    "match": "(--)(\\\\\"|[^\"])*(?=\"|$)",
+                    "name": "comment.line.double-dash.sql",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.comment.sql"
+                        }
+                    }
+                },
+                {
+                    "match": "\\\\[\\\\'`\"]",
+                    "name": "constant.character.escape.plush"
+                },
+                {
+                    "match": "(')([^'\\\\]*)(')",
+                    "name": "string.quoted.single.sql",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.string.begin.sql"
+                        },
+                        "2": {
+                            "patterns": [
+                                {
+                                    "include": "source.plush#interpolation_double_quoted"
+                                }
+                            ]
+                        },
+                        "3": {
+                            "name": "punctuation.definition.string.end.sql"
+                        }
+                    }
+                },
+                {
+                    "match": "(`)([^`\\\\]*)(`)",
+                    "name": "string.quoted.other.backtick.sql",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.string.begin.sql"
+                        },
+                        "2": {
+                            "patterns": [
+                                {
+                                    "include": "source.plush#interpolation_double_quoted"
+                                }
+                            ]
+                        },
+                        "3": {
+                            "name": "punctuation.definition.string.end.sql"
+                        }
+                    }
+                },
+                {
+                    "match": "'(?=((\\\\')|[^'\"])*(\"|$))",
+                    "name": "string.quoted.single.unclosed.sql"
+                },
+                {
+                    "include": "source.plush#interpolation_double_quoted"
+                }
+            ]
+        },
+        "text.html.plush - (meta.embedded | meta.tag), L:text.html.plush meta.tag, L:text.html.plush source.js": {
+            "patterns": [
+                {
+                    "include": "#plush-tag"
+                }
+            ]
+        }
+    },
+    "patterns": [
+        {
+            "begin": "\\A#!",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.comment.plush"
+                }
+            },
+            "end": "$",
+            "name": "comment.line.shebang.plush"
+        },
+        {
+            "include": "text.html.basic"
+        }
+    ],
+    "repository": {
+        "plush-tag": {
+            "patterns": [
+                {
+                    "begin": "<\\?(?i:plush|=)?(?![^?]*\\?>)",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.section.embedded.begin.plush"
+                        }
+                    },
+                    "end": "(\\?)>",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.section.embedded.end.plush"
+                        },
+                        "1": {
+                            "name": "source.plush"
+                        }
+                    },
+                    "name": "meta.embedded.block.plush",
+                    "contentName": "source.plush",
+                    "patterns": [
+                        {
+                            "include": "source.plush"
+                        }
+                    ]
+                },
+                {
+                    "begin": "<%=?",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.section.embedded.begin.plush"
+                        }
+                    },
+                    "end": "%>",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.section.embedded.end.plush"
+                        },
+                        "1": {
+                            "name": "source.plush"
+                        }
+                    },
+                    "name": "meta.embedded.line.plush",
+                    "contentName": "source.plush",
+                    "patterns": [
+                        {
+                            "include": "source.plush"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
